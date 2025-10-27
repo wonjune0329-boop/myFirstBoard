@@ -1,7 +1,4 @@
 spring:
-  h2:
-    console:
-      enabled: false
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}}
     username: ${SPRING_DATASOURCE_USERNAME:${DB_USER}}
@@ -11,6 +8,7 @@ spring:
       maximum-pool-size: 10
       minimum-idle: 2
       connection-timeout: 30000
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -20,3 +18,15 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope: openid, profile, email
+
+server:
+  port: ${PORT:8080}
