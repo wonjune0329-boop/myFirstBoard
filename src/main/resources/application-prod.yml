@@ -6,23 +6,23 @@ spring:
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
-    # ‼️ 이 부분이 url, hikari와 같은 레벨이어야 합니다!
-    properties:
-      ssl: true
-      sslmode: require
+    # ‼️ 이전에 추가했던 'properties:' 블록은 지워주세요.
 
     hikari:
       maximum-pool-size: 10
       minimum-idle: 2
       connection-timeout: 90000
 
+      # ‼️ SSL 설정을 Hikari가 알아듣도록 여기에 넣어줍니다!
+      data-source-properties:
+        ssl: true
+        sslmode: require
+
   jpa:
     hibernate:
       # ddl-auto: update (기존 설정이 맞다면 유지)
       ddl-auto: update
     show-sql: false
-
-    # ‼️ 이 부분이 jpa와 같은 레벨의 properties여야 합니다!
     properties:
       hibernate:
         jdbc:
