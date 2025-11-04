@@ -6,29 +6,24 @@ spring:
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
-    # ‼️ 이전에 추가했던 'properties:' 블록은 지워주세요.
+    # ‼️ SSL 관련 'properties:' 또는 'data-source-properties:' 블록을 모두 삭제했습니다.
 
     hikari:
       maximum-pool-size: 10
       minimum-idle: 2
-      connection-timeout: 90000
-
-      # ‼️ SSL 설정을 Hikari가 알아듣도록 여기에 넣어줍니다!
-      data-source-properties:
-        ssl: true
-        sslmode: require
+      connection-timeout: 90000 # 90초 타임아웃은 그대로 유지
 
   jpa:
     hibernate:
-      # ddl-auto: update (기존 설정이 맞다면 유지)
       ddl-auto: update
     show-sql: false
+
+    # ‼️ Dialect 지정은 'jpa.properties.hibernate' 아래에 두는 것이 맞습니다.
     properties:
       hibernate:
         jdbc:
           lob:
             non_contextual_creation: true
-        # DB 종류(Dialect)를 여기에 확실하게 지정해 줍니다.
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
   security:
